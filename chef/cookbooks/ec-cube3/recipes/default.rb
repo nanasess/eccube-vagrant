@@ -29,12 +29,15 @@ service "httpd" do
   action [:enable, :start]
 end
 
-template "/etc/httpd/sites-available/000-default" do
+template "/etc/httpd/sites-available/ec-cube3" do
   source "ec-cube3.erb"
   mode "0644"
-  link "/usr/bin/bundle" do
-    to "/etc/httpd/sites-available/ec-cube3"
-  end
+end
+
+link "/etc/httpd/sites-enabled/000-default" do
+  to "/etc/httpd/sites-available/ec-cube3"
   notifies :restart, "service[httpd]"
 end
+
+
 

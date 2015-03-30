@@ -42,7 +42,10 @@ vagrant-centos6-eccube3をEC-CUBEのプロジェクトに追加します:
 ディレクトリ構成は以下のようになります:
 
     ec-cube/
-    ├── public/
+    ├── html/
+    ├── src/
+    ├── app/
+    ~~~~~~
     └── vagrant/
 
 ## vagrant起動
