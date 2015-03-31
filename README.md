@@ -23,7 +23,6 @@ EC-CUBE3のディレクトリを仮想マシンからマウントするため、
 ## この環境に含まれるもの
 
 * PHP 5.3
-  * Xdebug
 * Apache 2.2
   * /ec-cubeをドキュメントルートに設定
 * MySQL Client
@@ -35,7 +34,7 @@ EC-CUBE3のディレクトリを仮想マシンからマウントするため、
 
 vagrant-centos6-eccube3をEC-CUBEのプロジェクトに追加します:
 
-    $ git submodule add git@github.com:Poego/vagrant-centos6-eccube3.git vagrant
+    $ git submodule add git@github.com:poego/vagrant-centos6-eccube.git ./vagrant
     $ cd vagrant
     $ vagrant up
 
@@ -66,9 +65,7 @@ $ sudo su -
 
 * Web
   * IPアドレス直接: [http://192.168.33.10/](http://192.168.10/)
-  * MailCatcher: [http://192.168.33.10:1080/](http://192.168.33.10:1080/)
-* PostgreSQL: pgsql:host=192.168.33.10;dbname=eccube_db (postgresユーザのpasswordはVagrantfileに設定されています)
-* Jenkins: [http://localhost:8080/](http://localhost:8080/)
+  * PostgreSQL: pgsql:host=192.168.33.10;dbname=eccube_db (postgresユーザのpasswordはVagrantfileに設定されています)
 
 ## Thanks to
 
