@@ -13,7 +13,7 @@ EC-CUBE3のディレクトリを仮想マシンからマウントするため、
 ### 必要なVagrant Plugin
 * vagrant-omnibus
 ```
-> vagrant plugin install vagrant-
+> vagrant plugin install vagrant-omnibus
 ```
 
 ### 利用環境
@@ -64,7 +64,7 @@ $ sudo su -
 ## プロジェクトへのアクセス方法
 
 * Web
-  * IPアドレス直接: [http://192.168.33.10/](http://192.168.10/)
+  * IPアドレス直接: [http://192.168.33.10/](http://192.168.33.10/)
   * PostgreSQL: pgsql:host=192.168.33.10;dbname=eccube_db (postgresユーザのpasswordはVagrantfileに設定されています)
 
 ## Thanks to
