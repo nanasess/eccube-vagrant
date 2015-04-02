@@ -22,13 +22,16 @@ EC-CUBE3のディレクトリを仮想マシンからマウントするため、
 
 ## この環境に含まれるもの
 
-* PHP 5.3
+* PHP 5.3.3
 * Apache 2.2
   * /ec-cubeをドキュメントルートに設定
 * MySQL Client
-* Postgresql Server
+* MySQL Server 5.1.73
+  * データベース 未作成
+* Postgresql Server 8.4.20
   * データベース **eccube_db**
 * Postgresql Client
+* git 1.7.1
 
 ## セットアップ方法とディレクトリ構成
 

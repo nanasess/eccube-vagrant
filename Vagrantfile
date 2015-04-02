@@ -9,14 +9,7 @@ sudo cp -p  /usr/share/zoneinfo/Japan /etc/localtime
 ## Database の作成
 sudo -u postgres createuser -d -S -R eccube_db_user
 sudo -u postgres createdb -U eccube_db_user -E utf-8 eccube_db
-### optional #############################
-## 以下のコメントを有効にすると, remote_db のコピーをローカルに作成する
-#
-# sudo -u vagrant echo "remote_host:5432:remote_db:remote_db_user:password" > .pgpass
-# chown vagrant:vagrant .pgpass
-# chmod 600 .pgpass
-# sudo -u vagrant pg_dump -h remote_host -U remote_db_user remote_db | psql -U test_db_user test_db
-### END optional #########################
+
 
 echo 'Congratulations!!! Install Success.'
 SCRIPT
@@ -45,6 +38,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe     "php"
     chef.add_recipe     "postgresql::client"
     chef.add_recipe     "postgresql::server"
+    chef.add_recipe     "mysql::client"
+    chef.add_recipe     "mysql::server"
+    chef.add_recipe     "git"
     chef.add_recipe     "ec-cube3"
 
     chef.json = {
@@ -72,12 +68,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           {:type => 'host', :db => 'all', :user => 'all', :addr => '127.0.0.1/32', :method => 'trust'},
           {:type => 'host', :db => 'all', :user => 'all', :addr => '::1/128', :method => 'trust'}
         ]
+      },
+      :mysql => {
+        :server_root_password => "passowrd",
+        :allow_remote_root => true,
+        :bind_address           => "0.0.0.0",
       }
     }
   end
 
   config.omnibus.chef_version = :latest
-  # config.berkshelf.enabled = true
 
   config.vm.provision "shell", inline: $shell
 end
