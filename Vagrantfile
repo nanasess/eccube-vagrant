@@ -70,7 +70,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         ]
       },
       :mysql => {
-        :server_root_password => "passowrd",
+        :server_root_password => "password",
         :allow_remote_root => true,
         :bind_address           => "0.0.0.0",
       }
