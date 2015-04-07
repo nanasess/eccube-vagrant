@@ -19,10 +19,11 @@ EC-CUBE3のディレクトリを仮想マシンからマウントするため、
 ### 利用環境
 
 + Mac OS X 10.9.5 - VirtualBox 4.2.26 & Vagrant 1.6.5 & Git 1.9.3
++ Mac OS X 10.10.2 - VirtualBox 4.3.26 & Vagrant 1.7.2 & Git 1.9.5
 
 ## この環境に含まれるもの
 
-* PHP 5.3.3
+* PHP 5.3.3 or PHP 5.4.39
 * Apache 2.2
   * /ec-cubeをドキュメントルートに設定
 * MySQL Client
