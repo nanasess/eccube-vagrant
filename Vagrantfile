@@ -1,3 +1,4 @@
+
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -25,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     :mount_options => ["dmode=777,fmode=777"]
 
   config.vm.provision :chef_solo do |chef|
-    #chef.log_level = :debug
+    chef.log_level = :debug
     chef.cookbooks_path = ["./chef/cookbooks", "./chef/site-cookbooks"]
     chef.roles_path = "./chef/roles"
     chef.data_bags_path = "./chef/data_bags"
@@ -35,15 +36,29 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe     "apache2::mod_php5"
     chef.add_recipe     "apache2::mod_ssl"
     chef.add_recipe     "apache2::mod_rewrite"
-    chef.add_recipe     "php"
+    chef.add_recipe     "git"
+    chef.add_recipe     "yum-ius"
+
+    # PHPはバージョンを変更できるようにしておく。ただし択一
+    # ▼PHP5.3を利用する場合にコメントアウト
+    #chef.add_recipe     "php"
+    # ▼PHP5.4を利用する場合にコメントアウト
+    chef.add_recipe     "php54-ius"
+    # PHPの選択ここまで
+
     chef.add_recipe     "postgresql::client"
     chef.add_recipe     "postgresql::server"
     chef.add_recipe     "mysql::client"
     chef.add_recipe     "mysql::server"
-    chef.add_recipe     "git"
+    
     chef.add_recipe     "ec-cube3"
 
     chef.json = {
+      :yum => {
+        :epel => {
+          :key_url => "wget http://ftp.riken.jp/Linux/fedora/epel/RPM-GPG-KEY-EPEL-6"
+        }
+      },
       :apache => {
         :version => "2.2",
         :default_site_enabled => true,
@@ -51,12 +66,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         :listen_ports => [80, 443]
       },
       :php => {
-        :version => "5.3",
         :directives => {
           :display_errors => 'On',
           "date.timezone" => "Asia/Tokyo",
         },
-        :packages => ["php-mbstring", "php-pdo", "php-pgsql", "php-mysql", "php-pear", "php-xml", "php-gd", "php-soap", "php-devel"]
+        # PHP5.3用
+        #:packages => ["php-mbstring", "php-pdo", "php-pgsql", "php-mysql", "php-pear", "php-xml", "php-gd", "php-soap", "php-devel"]
+        # PHP5.4用
+        :packages => ["php54", "php54-mbstring", "php54-pdo", "php54-pgsql", "php54-mysql", "php54-pear", "php54-xml", "php54-gd", "php54-soap", "php54-devel"]
       },
       :postgresql => {
         :password => {
