@@ -36,9 +36,9 @@ EC-CUBE3のディレクトリを仮想マシンからマウントするため、
 
 ## セットアップ方法とディレクトリ構成
 
-vagrant-centos6-eccube3をEC-CUBEのプロジェクトに追加します:
+このリポジトリをEC-CUBEのプロジェクトに追加します:
 
-    $ git submodule add git@github.com:poego/vagrant-centos6-eccube.git ./vagrant
+    $ git submodule add git@github.com:EC-CUBE/eccube-vagrant.git ./vagrant
     $ cd vagrant
     $ vagrant up
 
