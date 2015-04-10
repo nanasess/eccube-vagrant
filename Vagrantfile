@@ -1,4 +1,3 @@
-
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -50,7 +49,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe     "postgresql::server"
     chef.add_recipe     "mysql::client"
     chef.add_recipe     "mysql::server"
-    
+
     chef.add_recipe     "ec-cube3"
 
     chef.json = {
@@ -94,7 +93,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     }
   end
 
-  config.omnibus.chef_version = :latest
+  config.omnibus.chef_version = '12.2.1'
 
   config.vm.provision "shell", inline: $shell
 end
