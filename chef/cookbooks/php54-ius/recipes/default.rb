@@ -44,3 +44,11 @@ template "/etc/php.ini" do
   variables(:directives => node['php']['directives'])
   notifies :restart, "service[httpd]"
 end
+
+template "/etc/php.d/xdebug.ini" do
+  source "xdebug.ini.erb"
+  mode "0644"
+  notifies :restart, "service[httpd]"
+end
+
+

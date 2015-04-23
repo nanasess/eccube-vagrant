@@ -29,7 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     :mount_options => ["dmode=777,fmode=777"]
 
   config.vm.provision :chef_solo do |chef|
-    chef.log_level = :debug
+    #chef.log_level = :debug
     chef.cookbooks_path = ["./chef/cookbooks", "./chef/site-cookbooks"]
     chef.roles_path = "./chef/roles"
     chef.data_bags_path = "./chef/data_bags"
@@ -74,9 +74,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           "date.timezone" => "Asia/Tokyo",
         },
         # PHP5.3用
-        #:packages => ["php-mbstring", "php-pdo", "php-pgsql", "php-mysql", "php-pear", "php-xml", "php-gd", "php-soap", "php-devel"]
+        #:packages => ["php-mbstring", "php-pdo", "php-pgsql", "php-mysql", "php-pear", "php-xml", "php-gd", "php-soap", "php-devel", "php-pecl-xdebug"]
         # PHP5.4用
-        :packages => ["php54", "php54-mbstring", "php54-pdo", "php54-pgsql", "php54-mysql", "php54-pear", "php54-xml", "php54-gd", "php54-soap", "php54-devel"]
+        :packages => ["php54", "php54-mbstring", "php54-pdo", "php54-pgsql", "php54-mysql", "php54-pear", "php54-xml", "php54-gd", "php54-soap", "php54-devel", "php54-pecl-xdebug"]
       },
       :postgresql => {
         :password => {
