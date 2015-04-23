@@ -11,10 +11,17 @@ EC-CUBE3のディレクトリを仮想マシンからマウントするため、
 * Git  [ダウンロード](http://git-scm.com/downloads)
 
 ### 必要なVagrant Plugin
+
 * vagrant-omnibus
 ```
 > vagrant plugin install vagrant-omnibus
 ```
+
+* vagrant-cachier(推奨）
+```
+> vagrant plugin install vagrant-cachier 
+```
+
 
 ### 利用環境
 
