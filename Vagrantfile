@@ -15,7 +15,7 @@ echo 'Congratulations!!! Install Success.'
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "puppetlabs/centos-6.6-32-nocm"
+  config.vm.box = "chef/centos-6.6"
 
   config.vm.network "private_network", ip: "192.168.33.10"
 
