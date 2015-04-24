@@ -25,8 +25,9 @@ EC-CUBE3のディレクトリを仮想マシンからマウントするため、
 
 ### 利用環境
 
-+ Mac OS X 10.9.5 - VirtualBox 4.2.26 & Vagrant 1.6.5 & Git 1.9.3
-+ Mac OS X 10.10.2 - VirtualBox 4.3.26 & Vagrant 1.7.2 & Git 1.9.5
++ Mac OS X 10.9.5 - VirtualBox 4.2.26 & Vagrant 1.6.5 & Git 1.9.3  
++ Mac OS X 10.10.2 - VirtualBox 4.3.26 & Vagrant 1.7.2 & Git 1.9.5  
++ Windows 7 - VirtualBox 4.3.20 & Vagrant 1.6.5 & Git 2.3.5  
 
 ## この環境に含まれるもの
 
