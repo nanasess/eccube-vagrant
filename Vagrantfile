@@ -25,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.synced_folder "../", "/ec-cube",
     :create => true,
-    :owner=> 'apache', :group=>'apache',
+    :owner=> 'root', :group=>'root',
     :mount_options => ["dmode=777,fmode=777"]
 
   config.vm.provision :chef_solo do |chef|
