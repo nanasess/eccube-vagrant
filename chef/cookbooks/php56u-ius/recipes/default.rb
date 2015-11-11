@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: php54
+# Cookbook Name:: php56
 # Recipe:: default
 #
 # Copyright 2013, Kenji Suzuki <https://github.com/kenjis>
