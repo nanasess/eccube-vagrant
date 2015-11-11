@@ -44,7 +44,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe     "git"
     chef.add_recipe     "yum-ius"
 
-    chef.add_recipe     "php54-ius"
+    chef.add_recipe     "php56u-ius"
 
     chef.add_recipe     "postgresql::client"
     chef.add_recipe     "postgresql::server"
@@ -70,7 +70,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           :display_errors => 'On',
           "date.timezone" => "Asia/Tokyo",
         },
-        :packages => ["php54", "php54-mbstring", "php54-pdo", "php54-pgsql", "php54-mysql", "php54-pear", "php54-xml", "php54-gd", "php54-soap", "php54-devel", "php54-pecl-xdebug"]
+        :packages => ["php56u", "php56u-mbstring", "php56u-pdo", "php56u-pgsql", "php56u-mysql", "php56u-pear", "php56u-xml", "php56u-gd", "php56u-soap", "php56u-devel", "php56u-pecl-xdebug", "php56u-opcache", "php56u-pecl-apcu"]
       },
       :postgresql => {
         :password => {
