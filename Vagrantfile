@@ -1,3 +1,4 @@
+# coding: utf-8
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -7,15 +8,16 @@ $shell = <<SCRIPT
 ## Timezone の設定
 sudo cp -p  /usr/share/zoneinfo/Japan /etc/localtime
 ## Database の作成
-sudo -u postgres createuser -d -S -R eccube_db_user
-sudo -u postgres createdb -U eccube_db_user -E utf-8 eccube_db
+createuser -U postgres -d -S -R cube3_dev_user
+createdb -U cube3_dev_user -E utf-8 cube3_dev
 
 
 echo 'Congratulations!!! Install Success.'
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "chef/centos-6.6"
+  config.vm.box = "centos-6.7-i386"
+  config.vm.box_url = "http://downloads.sourceforge.net/project/nrel-vagrant-boxes/CentOS-6.7-i386-v20151108.box?r=&ts=1447201364&use_mirror=jaist"
 
   config.vm.network "private_network", ip: "192.168.33.10"
 
@@ -42,12 +44,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe     "git"
     chef.add_recipe     "yum-ius"
 
-    # PHPはバージョンを変更できるようにしておく。ただし択一
-    # ▼PHP5.3を利用する場合にコメントアウト
-    #chef.add_recipe     "php"
-    # ▼PHP5.4を利用する場合にコメントアウト
     chef.add_recipe     "php54-ius"
-    # PHPの選択ここまで
 
     chef.add_recipe     "postgresql::client"
     chef.add_recipe     "postgresql::server"
@@ -73,9 +70,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           :display_errors => 'On',
           "date.timezone" => "Asia/Tokyo",
         },
-        # PHP5.3用
-        #:packages => ["php-mbstring", "php-pdo", "php-pgsql", "php-mysql", "php-pear", "php-xml", "php-gd", "php-soap", "php-devel", "php-pecl-xdebug"]
-        # PHP5.4用
         :packages => ["php54", "php54-mbstring", "php54-pdo", "php54-pgsql", "php54-mysql", "php54-pear", "php54-xml", "php54-gd", "php54-soap", "php54-devel", "php54-pecl-xdebug"]
       },
       :postgresql => {
@@ -97,7 +91,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     }
   end
 
-  config.omnibus.chef_version = '12.2.1'
+  config.omnibus.chef_version = '12.5.1'
 
   config.vm.provision "shell", inline: $shell
 end
