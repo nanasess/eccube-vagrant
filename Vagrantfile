@@ -70,7 +70,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           :display_errors => 'On',
           "date.timezone" => "Asia/Tokyo",
         },
-        :packages => ["php56u", "php56u-mbstring", "php56u-pdo", "php56u-pgsql", "php56u-mysql", "php56u-pear", "php56u-xml", "php56u-gd", "php56u-soap", "php56u-devel", "php56u-pecl-xdebug", "php56u-opcache", "php56u-pecl-apcu"]
+        :packages => [
+          "php56u", "php56u-mbstring", "php56u-pdo", "php56u-pgsql",
+          "php56u-mysql", "php56u-pear", "php56u-xml", "php56u-gd",
+          "php56u-soap", "php56u-mcrypt", "php56u-devel",
+          "php56u-pecl-xdebug", "php56u-opcache", "php56u-pecl-apcu",
+        ]
       },
       :postgresql => {
         :password => {
