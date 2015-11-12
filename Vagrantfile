@@ -4,13 +4,19 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
+DB_NAME='cube3_dev'
+DB_USER='cube3_dev_user'
+DB_PASS='password'
+
 $shell = <<SCRIPT
 ## Timezone の設定
 sudo cp -p  /usr/share/zoneinfo/Japan /etc/localtime
 ## Database の作成
-createuser -U postgres -d -S -R cube3_dev_user
-createdb -U cube3_dev_user -E utf-8 cube3_dev
+createuser -U postgres -d -S -R #{DB_USER}
+createdb -U #{DB_USER} -E utf-8 #{DB_NAME}
 
+mysql --user=root --password=#{DB_PASS} -e "create database #{DB_NAME} DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
+mysql --user=root --password=#{DB_PASS} -e "GRANT ALL ON #{DB_NAME}.* TO '#{DB_USER}'@'%' IDENTIFIED BY '#{DB_PASS}'"
 
 echo 'Congratulations!!! Install Success.'
 SCRIPT
@@ -79,7 +85,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       },
       :postgresql => {
         :password => {
-          postgres: 'password'
+          postgres: DB_PASS
         },
         :pg_hba => [
           {:type => 'local', :db => 'all', :user => 'postgres', :addr => nil, :method => 'trust'},
@@ -89,7 +95,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         ]
       },
       :mysql => {
-        :server_root_password => "password",
+        :server_root_password => DB_PASS,
         :allow_remote_root => true,
         :bind_address           => "0.0.0.0",
       }
