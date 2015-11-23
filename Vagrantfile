@@ -1,21 +1,29 @@
+# coding: utf-8
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
 VAGRANTFILE_API_VERSION = "2"
 
+DB_NAME='cube3_dev'
+DB_USER='cube3_dev_user'
+DB_PASS='password'
+
 $shell = <<SCRIPT
 ## Timezone の設定
 sudo cp -p  /usr/share/zoneinfo/Japan /etc/localtime
 ## Database の作成
-sudo -u postgres createuser -d -S -R eccube_db_user
-sudo -u postgres createdb -U eccube_db_user -E utf-8 eccube_db
+createuser -U postgres -d -S -R #{DB_USER}
+createdb -U #{DB_USER} -E utf-8 #{DB_NAME}
 
+mysql --user=root --password=#{DB_PASS} -e "create database #{DB_NAME} DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
+mysql --user=root --password=#{DB_PASS} -e "GRANT ALL ON #{DB_NAME}.* TO '#{DB_USER}'@'%' IDENTIFIED BY '#{DB_PASS}'"
 
 echo 'Congratulations!!! Install Success.'
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "chef/centos-6.6"
+  config.vm.box = "centos-6.7-i386"
+  config.vm.box_url = "http://downloads.sourceforge.net/project/nrel-vagrant-boxes/CentOS-6.7-i386-v20151108.box?r=&ts=1447201364&use_mirror=jaist"
 
   config.vm.network "private_network", ip: "192.168.33.10"
 
@@ -42,12 +50,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe     "git"
     chef.add_recipe     "yum-ius"
 
-    # PHPはバージョンを変更できるようにしておく。ただし択一
-    # ▼PHP5.3を利用する場合にコメントアウト
-    #chef.add_recipe     "php"
-    # ▼PHP5.4を利用する場合にコメントアウト
-    chef.add_recipe     "php54-ius"
-    # PHPの選択ここまで
+    chef.add_recipe     "php56u-ius"
 
     chef.add_recipe     "postgresql::client"
     chef.add_recipe     "postgresql::server"
@@ -73,14 +76,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           :display_errors => 'On',
           "date.timezone" => "Asia/Tokyo",
         },
-        # PHP5.3用
-        #:packages => ["php-mbstring", "php-pdo", "php-pgsql", "php-mysql", "php-pear", "php-xml", "php-gd", "php-soap", "php-devel", "php-pecl-xdebug"]
-        # PHP5.4用
-        :packages => ["php54", "php54-mbstring", "php54-pdo", "php54-pgsql", "php54-mysql", "php54-pear", "php54-xml", "php54-gd", "php54-soap", "php54-devel", "php54-pecl-xdebug"]
+        :packages => [
+          "php56u", "php56u-mbstring", "php56u-pdo", "php56u-pgsql",
+          "php56u-mysql", "php56u-pear", "php56u-xml", "php56u-gd",
+          "php56u-soap", "php56u-mcrypt", "php56u-devel",
+          "php56u-pecl-xdebug", "php56u-opcache", "php56u-pecl-apcu",
+        ]
       },
       :postgresql => {
         :password => {
-          postgres: 'password'
+          postgres: DB_PASS
         },
         :pg_hba => [
           {:type => 'local', :db => 'all', :user => 'postgres', :addr => nil, :method => 'trust'},
@@ -90,14 +95,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         ]
       },
       :mysql => {
-        :server_root_password => "password",
+        :server_root_password => DB_PASS,
         :allow_remote_root => true,
         :bind_address           => "0.0.0.0",
       }
     }
   end
 
-  config.omnibus.chef_version = '12.2.1'
+  config.omnibus.chef_version = '12.5.1'
 
   config.vm.provision "shell", inline: $shell
 end

@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: php54
+# Cookbook Name:: php56
 # Recipe:: default
 #
 # Copyright 2013, Kenji Suzuki <https://github.com/kenjis>
@@ -45,8 +45,14 @@ template "/etc/php.ini" do
   notifies :restart, "service[httpd]"
 end
 
-template "/etc/php.d/xdebug.ini" do
-  source "xdebug.ini.erb"
+template "/etc/php.d/10-opcache.ini" do
+  source "10-opcache.ini.erb"
+  mode "0644"
+  notifies :restart, "service[httpd]"
+end
+
+template "/etc/php.d/15-xdebug.ini" do
+  source "15-xdebug.ini.erb"
   mode "0644"
   notifies :restart, "service[httpd]"
 end
